@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+
+namespace TreeViewExample
+{
+    class TreeNode
+    {
+        public string Value;
+        public List<TreeNode> Children;
+
+        public TreeNode(string value)
+        {
+            Value = value;
+            Children = new List<TreeNode>();
+        }
+
+        public void AddChild(TreeNode child)
+        {
+            Children.Add(child);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TreeNode rootNode = new TreeNode("Vehicles");
+            TreeNode carNode = new TreeNode("Cars");
+            TreeNode bikeNode = new TreeNode("Bikes");
+            rootNode.AddChild(carNode);
+            rootNode.AddChild(bikeNode);
+
+            List<string> carValues = new List<string>();
+            carValues.Add("Ford");
+            carValues.Add("Mahindra");
+            carValues.Add("Toyota");
+
+            List<string> bikeValues = new List<string>();
+            bikeValues.Add("Harley Davidson");
+            bikeValues.Add("Honda");
+            bikeValues.Add("Kawasaki");
+
+            foreach (string car in carValues)
+            {
+                TreeNode carValueNode = new TreeNode(car);
+                carNode.AddChild(carValueNode);
+            }
+
+            foreach (string bike in bikeValues)
+            {
+                TreeNode bikeValueNode = new TreeNode(bike);
+                bikeNode.AddChild(bikeValueNode);
+            }
+
+            DisplayTreeNode(rootNode, 0);
+
+            Console.WriteLine("Press key to exit");
+            Console.ReadKey();
+        }
+
+        static void DisplayTreeNode(TreeNode node, int indentLevel)
+        {
+            Console.WriteLine(new string(' ', indentLevel * 2) + node.Value);
+
+            foreach (TreeNode child in node.Children)
+            {
+                DisplayTreeNode(child, indentLevel + 1);
+            }
+        }
+    }
+}
